@@ -16,7 +16,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        window = UIWindow(windowScene: windowScene)
+        
+        let db = PokemonNameFetcher(localCache: CoreDataPokemonDB.shared)
+        
+        let pokedexVC = PokemonListViewController(pokemonNameService: db)
+        pokedexVC.title = "Pokédex"
+        
+        let pokedexNavVC = UINavigationController(rootViewController: pokedexVC)
+        pokedexNavVC.navigationBar.prefersLargeTitles = true
+        pokedexNavVC.modalPresentationStyle = .fullScreen
+        pokedexNavVC.tabBarItem = UITabBarItem(title: "Pokédex", image: UIImage(systemName: "text.book.closed.fill"), tag: 0)
+        
+        let favoritedVC = PokemonCollectionViewController(pokemonNameService: db)
+        favoritedVC.title = "Your Pokémon"
+        
+        let favoritedNavVC = UINavigationController(rootViewController: favoritedVC)
+        favoritedNavVC.navigationBar.prefersLargeTitles = true
+        favoritedNavVC.tabBarItem = UITabBarItem(title: "Your Pokémon", image: UIImage(systemName: "heart.fill"), tag: 1)
+        
+        let tabBarVC = UITabBarController()
+        tabBarVC.viewControllers = [pokedexNavVC, favoritedNavVC]
+        
+        window?.rootViewController = tabBarVC
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
