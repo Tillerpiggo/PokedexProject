@@ -68,20 +68,20 @@ class PokemonCollectionViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.pokemonNameService.fetchPokemonNames { [weak self] result in
-            print("fetched favorited pokemon names")
-            guard let self = self else { return }
-            print("fetched favorited pokemon names")
-            switch result {
-            case .success(let favoritedPokemonNames):
-                self.pokemonNameList = favoritedPokemonNames
-                DispatchQueue.main.async { [weak self] in
-                    self?.collectionView.reloadData()
-                }
-            case .failure(let error):
-                print("Error fetching pokemon names for PokemonCollectionViewController: \(error)")
-            }
-        }
+//        self.pokemonNameService.fetchPokemonNames { [weak self] result in
+//            print("fetched favorited pokemon names")
+//            guard let self = self else { return }
+//            print("fetched favorited pokemon names")
+//            switch result {
+//            case .success(let favoritedPokemonNames):
+//                self.pokemonNameList = favoritedPokemonNames
+//                DispatchQueue.main.async { [weak self] in
+//                    self?.collectionView.reloadData()
+//                }
+//            case .failure(let error):
+//                print("Error fetching pokemon names for PokemonCollectionViewController: \(error)")
+//            }
+//        }
     }
     
     override func viewDidLayoutSubviews() {
