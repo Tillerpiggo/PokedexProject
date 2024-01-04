@@ -35,9 +35,11 @@ class PokemonNameFetcher: PokemonNameService {
                     pokemonListResponse.results[i].nationalNo = offset + i + 1
                 }
                 self?.localCache.addPokemonNames(pokemonListResponse.results)
+                self?.isFetching = false
                 completion(.success(pokemonListResponse.results))
             case .failure(let error):
                 print("ERROR loading PokemonNameEntities in PokemonNameFetcher: \(error)")
+                self?.isFetching = false
                 completion(.failure(error))
             }
         }
