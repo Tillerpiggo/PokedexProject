@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+// Add to a UITableViewController, UIScrollViewController, or UICollectionViewController. Make sure to implement
+// scrollViewDidScroll(_ scrollView:) with fetchDataIfNearBottom(of:)
 protocol Paginating {
     var paginationManager: PaginationManager { get }
     func updateRows(at indexPaths: [IndexPath])
@@ -22,7 +24,7 @@ class PaginationManager {
     private(set) var pokemonList: [PokemonName]
     var canFetchData: Bool { !pokemonNameService.isFetching }
     
-    private var pokemonNameService: PokemonNameService
+    private(set) var pokemonNameService: PokemonNameService
     private var offset: Int
     private var batchSize: Int
     

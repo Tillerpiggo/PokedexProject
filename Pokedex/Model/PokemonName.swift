@@ -43,7 +43,7 @@ struct PokemonName: CoreDataStorable, Codable {
     }
     
     // For testing. This is typically initialized from an API call or cache.
-    init(name: String, url: String, nationalNo: Int?, isFavorited: Bool?) {
+    init(name: String, url: String, nationalNo: Int?, isFavorited: Bool? = false) {
         self.name = name
         self.url = url
         self.nationalNo = nationalNo

@@ -9,13 +9,23 @@ import Foundation
 import UIKit
 
 // Displays pokemon profiles in a 2 column collection view
-class PokemonCollectionViewController: UIViewController {
+class PokemonCollectionViewController: UIViewController, Paginating {
+    func updateRows(at indexPaths: [IndexPath]) {
+        collectionView.reloadData()
+    }
     
-    private let pokemonNameService: PokemonNameService
-    private var pokemonNameList: [PokemonName] = []
+    func showSpinningFooter() {
+        // do nothing
+    }
+    
+    func hideSpinningFooter() {
+        // do nothing
+    }
+    
+    
+    let paginationManager: PaginationManager
     
     private let collectionView = {
-        
         let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
             // Create items that take up 1/3 of the available width, for example
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .fractionalWidth(1/2))
@@ -39,7 +49,7 @@ class PokemonCollectionViewController: UIViewController {
     }()
     
     init(pokemonNameService: PokemonNameService) {
-        self.pokemonNameService = pokemonNameService
+        self.paginationManager = PaginationManager(pokemonNameService: pokemonNameService, batchSize: 10)
         super.init(nibName: nil, bundle: nil)
         view.addSubview(collectionView)
         collectionView.dataSource = self
@@ -49,25 +59,25 @@ class PokemonCollectionViewController: UIViewController {
     // 1. Create a FavoritedPokemonNameService for this
     // 2. Add pagination to this collectionViewController, modelling it off of the PokemonListViewController, maybe with a different batch size
     
-    private func fetchNames() {
-        //let onlyFavorites = NSPredicate(format: "isFavorited == %@", NSNumber(value: true))
-        self.pokemonNameService.fetchPokemonNames(offset: 0, batchSize: 40) { [weak self] result in
-            print("fetched favorited pokemon names")
-            guard let self = self else { return }
-            print("fetched favorited pokemon names")
-            switch result {
-            case .success(let favoritedPokemonNames):
-                self.pokemonNameList = favoritedPokemonNames
-                DispatchQueue.main.async { [weak self] in
-                    self?.collectionView.reloadData()
-                }
-            case .failure(let error):
-                print("Error fetching pokemon names for PokemonCollectionViewController: \(error)")
-            }
-        }
-    }
+//    private func fetchNames() {
+//        //let onlyFavorites = NSPredicate(format: "isFavorited == %@", NSNumber(value: true))
+//        self.pokemonNameService.fetchPokemonNames(offset: 0, batchSize: 40) { [weak self] result in
+//            print("fetched favorited pokemon names")
+//            guard let self = self else { return }
+//            print("fetched favorited pokemon names")
+//            switch result {
+//            case .success(let favoritedPokemonNames):
+//                self.pokemonNameList = favoritedPokemonNames
+//                DispatchQueue.main.async { [weak self] in
+//                    self?.collectionView.reloadData()
+//                }
+//            case .failure(let error):
+//                print("Error fetching pokemon names for PokemonCollectionViewController: \(error)")
+//            }
+//        }
+//    }
     
-    override func viewWillAppear(_ animated: Bool) {
+    //override func viewWillAppear(_ animated: Bool) {
 //        self.pokemonNameService.fetchPokemonNames { [weak self] result in
 //            print("fetched favorited pokemon names")
 //            guard let self = self else { return }
@@ -82,7 +92,7 @@ class PokemonCollectionViewController: UIViewController {
 //                print("Error fetching pokemon names for PokemonCollectionViewController: \(error)")
 //            }
 //        }
-    }
+    //}
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -103,8 +113,8 @@ extension PokemonCollectionViewController: UICollectionViewDataSource, UICollect
         
         cell.contentView.subviews.forEach { $0.removeFromSuperview() }
         
-        let profileView = PokemonProfileView(pokemonService: pokemonNameService)
-        profileView.configure(with: pokemonNameList[indexPath.row].name)
+        let profileView = PokemonProfileView(pokemonService: paginationManager.pokemonNameService)
+        profileView.configure(with: paginationManager.pokemonList[indexPath.row].name)
         profileView.frame = cell.contentView.bounds
         profileView.delegate = self
         cell.contentView.addSubview(profileView)
@@ -112,13 +122,16 @@ extension PokemonCollectionViewController: UICollectionViewDataSource, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("count: \(pokemonNameList.count)")
-        return pokemonNameList.count
+        return paginationManager.pokemonList.count
     }
     
     func pokemonProfileTapped(_ pokemonName: String) {
         let pokemonVC = PokemonViewController(pokemonService: PokemonFetcher(pokemonName: pokemonName, localCache: CoreDataPokemonDB.shared))
         
         navigationController?.pushViewController(pokemonVC, animated: true)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        fetchDataIfNearBottom(of: scrollView)
     }
 }

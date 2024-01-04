@@ -101,6 +101,12 @@ extension AbilityDetailsViewController: UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let pokemonCollectionVC = PokemonCollectionViewController(pokemonNameService: StaticPokemonNameFetcher(names: abilityDetails!.pokemon.map { $0.pokemon }, localCache: CoreDataPokemonDB.shared))
+        navigationController?.pushViewController(pokemonCollectionVC, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
