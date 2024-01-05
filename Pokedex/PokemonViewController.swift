@@ -21,6 +21,7 @@ class PokemonViewController: UIViewController {
     private let tableView = {
         let tableView = UITableView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(PagingTableViewCell.self, forCellReuseIdentifier: "pagingCell")
         tableView.register(PokemonTypeTableViewCell.self, forCellReuseIdentifier: "pokemonTypeCell")
         tableView.register(LoadingImageTableViewCell.self, forCellReuseIdentifier: "loadingImage")
         tableView.register(MultilineTextTableViewCell.self, forCellReuseIdentifier: "multilineText")
@@ -107,9 +108,10 @@ extension PokemonViewController: UITableViewDelegate, UITableViewDataSource {
             (cell as? AbilityStackTableViewCell)?.configure(with: pokemon.abilities)
             (cell as? AbilityStackTableViewCell)?.delegate = self
         case 3:
-            cell = tableView.dequeueReusableCell(withIdentifier: "multilineText", for: indexPath)
-            let flavorText = pokemon.englishDescription?.parseFlavorText() ?? "Loading description..."
-            cell.textLabel?.text = flavorText
+            cell = tableView.dequeueReusableCell(withIdentifier: "pagingCell", for: indexPath)
+            //let flavorText = pokemon.englishDescription?.parseFlavorText() ?? "Loading description..."
+            (cell as? PagingTableViewCell)?.descriptions = pokemon.fetchedSpecies?.flavor_text_entries.map { $0.flavor_text.parseFlavorText() } ?? ["loading"]
+            //cell.textLabel?.text = flavorText
         case 4:
             cell = tableView.dequeueReusableCell(withIdentifier: "stats", for: indexPath)
             (cell as? StatsTableViewCell)?.configure(with: pokemon.stats)
@@ -157,7 +159,7 @@ extension PokemonViewController: PokemonServiceDelegate, EvolutionTreeViewDelega
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             title = pokemon.name.capitalized
-            let textAttributes = [NSAttributedString.Key.foregroundColor: pokemon.typeEnums.first!.color]
+            let textAttributes = [NSAttributedString.Key.foregroundColor: pokemon.typeEnums.first!.titleColor]
             navigationController?.navigationBar.largeTitleTextAttributes = textAttributes
             navigationItem.rightBarButtonItem?.image = UIImage(systemName: pokemon.isFavorited ?? false ? "heart.fill" : "heart")
             tableView.reloadData()

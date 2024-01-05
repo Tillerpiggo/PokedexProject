@@ -108,3 +108,18 @@ extension Paginating where Self: UITableViewController {
         tableView.tableFooterView = nil
     }
 }
+
+extension Paginating where Self: UICollectionViewController {
+    func updateRows(at indexPaths: [IndexPath]) {
+        collectionView.reloadData()
+    }
+    
+    // TODO: Make this a little better lol
+    func showSpinningFooter() {
+        // do nothing
+    }
+    
+    func hideSpinningFooter() {
+        // do nothing
+    }
+}

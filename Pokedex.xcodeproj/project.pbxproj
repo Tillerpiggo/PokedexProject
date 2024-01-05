@@ -49,6 +49,7 @@
 		027E2C5F2B45195C00F042E6 /* PokemonNameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027E2C5E2B45195C00F042E6 /* PokemonNameService.swift */; };
 		027E2C612B45425400F042E6 /* FavoritePokemonNameFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027E2C602B45425400F042E6 /* FavoritePokemonNameFetcher.swift */; };
 		027E2C632B4750EA00F042E6 /* Paginating+PaginationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027E2C622B4750EA00F042E6 /* Paginating+PaginationManager.swift */; };
+		027E2C652B477E2500F042E6 /* PagingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027E2C642B477E2500F042E6 /* PagingTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		027E2C5E2B45195C00F042E6 /* PokemonNameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonNameService.swift; sourceTree = "<group>"; };
 		027E2C602B45425400F042E6 /* FavoritePokemonNameFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePokemonNameFetcher.swift; sourceTree = "<group>"; };
 		027E2C622B4750EA00F042E6 /* Paginating+PaginationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Paginating+PaginationManager.swift"; sourceTree = "<group>"; };
+		027E2C642B477E2500F042E6 /* PagingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 				0268037F2B3783A500478609 /* StatsTableViewCell.swift */,
 				027E2B6B2B37F1E200F042E6 /* ListPreviewTableViewCell.swift */,
 				027E2B732B381BA000F042E6 /* AbilityStackTableViewCell.swift */,
+				027E2C642B477E2500F042E6 /* PagingTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				026802D02B34C6D400478609 /* AppDelegate.swift in Sources */,
 				026803352B356D2200478609 /* PokemonType.swift in Sources */,
 				027E2B6C2B37F1E200F042E6 /* ListPreviewTableViewCell.swift in Sources */,
+				027E2C652B477E2500F042E6 /* PagingTableViewCell.swift in Sources */,
 				0268034E2B36416500478609 /* ArrowLabelView.swift in Sources */,
 				026802D22B34C6D400478609 /* SceneDelegate.swift in Sources */,
 				026803392B35776200478609 /* LoadingImageView.swift in Sources */,

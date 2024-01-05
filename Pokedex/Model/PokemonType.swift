@@ -81,29 +81,30 @@ enum PokemonType {
         }
     }
     
+    var titleColor: UIColor {
+        switch self {
+        case .normal: return UIColor.normalTitle
+        case .fire: return UIColor.fireTitle
+        case .water: return UIColor.waterTitle
+        case .electric: return UIColor.electricTitle
+        case .grass: return UIColor.grassTitle
+        case .ice: return UIColor.iceTitle
+        case .fighting: return UIColor.fightingTitle
+        case .poison: return UIColor.poisonTitle
+        case .ground: return UIColor.groundTitle
+        case .flying: return UIColor.flyingTitle
+        case .psychic: return UIColor.psychicTitle
+        case .bug: return UIColor.bugTitle
+        case .rock: return UIColor.rockTitle
+        case .ghost: return UIColor.ghostTitle
+        case .dragon: return UIColor.dragonTitle
+        case .dark: return UIColor.darkTitle
+        case .steel: return UIColor.steelTitle
+        case .fairy: return UIColor.fairyTitle
+        }
+    }
+    
     var textColor: UIColor {
         return .white
     }
-}
-
-// Helper extension to define custom colors
-extension UIColor {
-    static let normalBeige = UIColor(red: 168/255, green: 167/255, blue: 122/255, alpha: 1.0)
-    static let fireRed = UIColor(red: 237/255, green: 109/255, blue: 18/255, alpha: 1.0)
-    static let waterBlue = UIColor(red: 99/255, green: 144/255, blue: 240/255, alpha: 1.0)
-    static let electricYellow = UIColor(red: 247/255, green: 208/255, blue: 44/255, alpha: 1.0)
-    static let grassGreen = UIColor(red: 122/255, green: 199/255, blue: 76/255, alpha: 1.0)
-    static let iceBlue = UIColor(red: 150/255, green: 217/255, blue: 214/255, alpha: 1.0)
-    static let fightingOrange = UIColor(red: 194/255, green: 46/255, blue: 40/255, alpha: 1.0)
-    static let poisonPurple = UIColor(red: 163/255, green: 62/255, blue: 161/255, alpha: 1.0)
-    static let groundBrown = UIColor(red: 226/255, green: 191/255, blue: 101/255, alpha: 1.0)
-    static let flyingLavender = UIColor(red: 169/255, green: 143/255, blue: 243/255, alpha: 1.0)
-    static let psychicPink = UIColor(red: 249/255, green: 85/255, blue: 135/255, alpha: 1.0)
-    static let bugGreen = UIColor(red: 166/255, green: 185/255, blue: 26/255, alpha: 1.0)
-    static let rockGray = UIColor(red: 182/255, green: 161/255, blue: 54/255, alpha: 1.0)
-    static let ghostPurple = UIColor(red: 111/255, green: 88/255, blue: 152/255, alpha: 1.0)
-    static let dragonBlue = UIColor(red: 111/255, green: 53/255, blue: 252/255, alpha: 1.0)
-    static let darkBlack = UIColor(red: 112/255, green: 87/255, blue: 70/255, alpha: 1.0)
-    static let steelGray = UIColor(red: 183/255, green: 183/255, blue: 206/255, alpha: 1.0)
-    static let fairyPink = UIColor(red: 214/255, green: 133/255, blue: 173/255, alpha: 1.0)
 }

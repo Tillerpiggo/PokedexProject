@@ -96,6 +96,7 @@ class StatView: UIView {
     
     func configure(with stat: PokemonStatEntry) {
         statLabel.text = stat.displayName
+        statLabel.textColor = .statLabelTextColor
         if let widthConstraint = progressBarWidthConstraint {
             NSLayoutConstraint.deactivate([widthConstraint])
             let newConstraint = progressRect.widthAnchor.constraint(equalTo: backgroundRect.widthAnchor, multiplier: CGFloat(stat.base_stat) / 255.0)
